@@ -1,6 +1,5 @@
 #include "stdafx.h"
 
-//todo, add file checks with boost fs, check if numbers are numbers etc.
 
 using namespace cimg_library;
 
