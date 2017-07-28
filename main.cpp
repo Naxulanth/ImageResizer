@@ -9,6 +9,8 @@ std::string s_in;
 const char* newname;
 int pct1;
 int pct2;
+int d_pct1;
+int d_pct2;
 char* sw;
 const float color[] = { 255.,255.,255. };
 
@@ -26,23 +28,35 @@ int main(int argc, char* argv[]) {
 
 		else {
 			std::cout << "Usage: imageresizer <filename> <X axis> <Y axis> <switch (-r by default)>" << std::endl;
-			std::cout << "Switches: -r (resize image by %), -d (resize image to amount of pixels)" << std::endl;
+			std::cout << "Switches: -r (resize image to %), -p (resize image to amount of pixels)" << std::endl;
 			break;
 		}
 
-		if (sw == "-d") {
+		if (!(boost::filesystem::is_regular_file(s_in))) {
+			std::cout << "File not found!" << std::endl;
+			break;
+		}
+		boost::filesystem::path path(s_in);
+		std::string ext = boost::filesystem::extension(s_in);
+		std::string pre = path.stem().string();
+		std::string r_sw = sw;
+		d_pct1 = pct1;
+		d_pct2 = pct2;
+
+		if (r_sw == "-p") {
+			std::cout << "lul" << std::endl;
 			if (pct1 < 0) pct1 = pct1 - pct1 * 2;
 			if (pct2 < 0) pct2 = pct2 - pct2 * 2;
+			s_in = pre + "_" + std::to_string(d_pct1) + "px_" + std::to_string(d_pct2) + "px" + ext;
 		}
 
 		else {
 			if (pct1 > 0) pct1 = pct1 - pct1 * 2;
 			if (pct2 > 0) pct2 = pct2 - pct2 * 2;
+			s_in = pre + "_" + std::to_string(d_pct1) + "pct_" + std::to_string(d_pct2) + "pct" + ext;
 		}
+	
 
-
-		std::size_t dot = s_in.find(".");
-		s_in = s_in.substr(0, dot) + "_thumb" + s_in.substr(dot, s_in.length());
 		newname = s_in.c_str();
 
 		CImg<unsigned char> image(in);
