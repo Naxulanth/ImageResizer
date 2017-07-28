@@ -11,7 +11,7 @@ int pct2;
 int d_pct1;
 int d_pct2;
 char* sw;
-const float color[] = { 255.,255.,255. };
+const float color[] = { 150.,150.,150. };
 
 int main(int argc, char* argv[]) {
 
@@ -43,7 +43,6 @@ int main(int argc, char* argv[]) {
 		d_pct2 = pct2;
 
 		if (r_sw == "-p") {
-			std::cout << "lul" << std::endl;
 			if (pct1 < 0) pct1 = pct1 - pct1 * 2;
 			if (pct2 < 0) pct2 = pct2 - pct2 * 2;
 			s_in = pre + "_" + std::to_string(d_pct1) + "px_" + std::to_string(d_pct2) + "px" + ext;
@@ -59,10 +58,9 @@ int main(int argc, char* argv[]) {
 		newname = s_in.c_str();
 
 		CImg<unsigned char> image(in);
-		image.resize(pct1, pct2);
-		image.draw_point(50, 50, color);
-		image.normalize(0, 255);
-		image.save(newname);
+		 image.resize(pct1, pct2, -100, -100, 3);
+		 image.normalize(0, 255);
+		 image.save(newname);
 		return 0;
 	}
 }
