@@ -6,7 +6,7 @@ using namespace cimg_library;
 char* in;
 std::string s_in;
 std::string new_path;
-const char* new_name;
+const char* new_path_char;
 int pct1;
 int pct2;
 int d_pct1;
@@ -65,16 +65,16 @@ int main(int argc, char* argv[]) {
             s_in = pre + "_" + std::to_string(d_pct1) + "pct_" + std::to_string(d_pct2) + "pct" + ext;
         }
 
-        // new name in char* format for CImg save function
+        // new path in char* format for CImg save function
         new_path = path.parent_path().string() + s_in;
-        new_name = new_path.c_str();
+        new_path_char = new_path.c_str();
 
         // create a CImg object with the selected image, resize, normalize, and save it. -100 is default value for
         // Z and V axis scaling, 3 is for linear interpolation as resizing type.
         CImg<unsigned char> image(in);
         image.resize(pct1, pct2, -100, -100, 3);
         image.normalize(0, 255);
-        image.save(new_name);
+        image.save(new_path_char);
         std::cout << "Saved to: " + new_path;
         return 0;
     }
