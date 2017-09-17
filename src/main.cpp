@@ -67,7 +67,6 @@ int main(int argc, char* argv[]) {
 
         // new name in char* format for CImg save function
         new_path = path.parent_path().string() + s_in;
-        std::cout << "Saved to: " + new_path;
         new_name = new_path.c_str();
 
         // create a CImg object with the selected image, resize, normalize, and save it. -100 is default value for
@@ -76,6 +75,7 @@ int main(int argc, char* argv[]) {
         image.resize(pct1, pct2, -100, -100, 3);
         image.normalize(0, 255);
         image.save(new_name);
+        std::cout << "Saved to: " + new_path;
         return 0;
     }
 }
